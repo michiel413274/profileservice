@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using ProfileService.AsyncDataServices;
+using ProfileService.EventProcessing;
 
 namespace ProfileService
 {
@@ -15,6 +17,10 @@ namespace ProfileService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddHostedService<MessageBusSubscriber>();
+
+            services.AddSingleton<IEventProcessor, EventProcessor>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProfileService", Version = "v1" });
