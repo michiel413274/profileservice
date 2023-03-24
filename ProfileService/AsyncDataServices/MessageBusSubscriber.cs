@@ -32,11 +32,12 @@ namespace ProfileService.AsyncDataServices
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+            _channel.ExchangeDeclare(exchange: "Profile", type: ExchangeType.Topic, true);
+            _channel.QueueDeclare("profilequeue", true, false, false, null);
             _queueName = _channel.QueueDeclare().QueueName;
             _channel.QueueBind(queue: _queueName,
-                exchange: "trigger",
-                routingKey: "");
+                exchange: "Profile",
+                routingKey: "fyves");
             Console.WriteLine("Listening on the Message Bus");
 
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown; 
