@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Business;
+using Dal.Data;
+using IBusiness;
+using iDal.Interface;
 using Microsoft.OpenApi.Models;
 using ProfileService.AsyncDataServices;
 using ProfileService.EventProcessing;
@@ -21,6 +24,9 @@ namespace ProfileService
             services.AddHostedService<MessageBusSubscriber>();
 
             services.AddSingleton<IEventProcessor, EventProcessor>();
+            services.AddScoped<IProfileRepo, ProfileRepo>();
+            services.AddScoped<IProfileLogic, ProfileLogic>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProfileService", Version = "v1" });

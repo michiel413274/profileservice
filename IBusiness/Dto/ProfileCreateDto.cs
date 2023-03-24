@@ -1,6 +1,13 @@
-﻿namespace ProfileService.Models
+﻿using IBusiness.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IBusiness.Dto
 {
-    public class ProfileModel
+    public class ProfileCreateDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,9 +18,11 @@
         public string Description { get; set; }
         public string ProfilePicture { get; set; }
 
-        public ProfileModel() { }
+        public ProfileCreateDto()
+        {            
+        }
 
-        public ProfileModel(int id, string name, int age, string location, Genders genders, string description, string profilePicture)
+        public ProfileCreateDto(int id, string name, int age, string location, Genders genders, string description, string profilePicture)
         {
             Id = id;
             Name = name;
