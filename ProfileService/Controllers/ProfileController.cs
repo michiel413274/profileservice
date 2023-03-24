@@ -10,6 +10,7 @@ namespace ProfileService.Controllers
         [HttpPost(Name = "CreateProfile")]
         public async Task<ActionResult<ProfileModel>> CreateProfile(ProfileModel profile)
         {
+
             return Ok(profile);
         }
     }
