@@ -2,6 +2,7 @@
 using Dal.Data;
 using IBusiness;
 using iDal.Interface;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 //using ProfileService.AsyncDataServices;
 using ProfileService.EventProcessing;
@@ -19,11 +20,14 @@ namespace ProfileService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProfileDbContext>(opt =>
+            opt.UseInMemoryDatabase("InMemory"));
+
             services.AddControllers();
 
             //services.AddHostedService<MessageBusSubscriber>();
 
-            services.AddSingleton<IEventProcessor, EventProcessor>();
+            //services.AddSingleton<IEventProcessor, EventProcessor>();
             services.AddScoped<IProfileRepo, ProfileRepo>();
             services.AddScoped<IProfileLogic, ProfileLogic>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
