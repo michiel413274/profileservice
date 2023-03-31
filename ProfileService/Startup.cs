@@ -3,7 +3,7 @@ using Dal.Data;
 using IBusiness;
 using iDal.Interface;
 using Microsoft.OpenApi.Models;
-using ProfileService.AsyncDataServices;
+//using ProfileService.AsyncDataServices;
 using ProfileService.EventProcessing;
 
 namespace ProfileService
@@ -21,7 +21,7 @@ namespace ProfileService
         {
             services.AddControllers();
 
-            services.AddHostedService<MessageBusSubscriber>();
+            //services.AddHostedService<MessageBusSubscriber>();
 
             services.AddSingleton<IEventProcessor, EventProcessor>();
             services.AddScoped<IProfileRepo, ProfileRepo>();
