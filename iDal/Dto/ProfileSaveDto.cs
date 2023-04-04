@@ -12,8 +12,8 @@ namespace iDal.Dto
         public DateTime Fyver { get; set; }
         //public Genders Genders { get; set; }
 
-        public string Description { get; set; }
-        public string ProfilePicture { get; set; }
+        //public string Description { get; set; }
+        //public string ProfilePicture { get; set; }
 
         public ProfileSaveDto()
         {

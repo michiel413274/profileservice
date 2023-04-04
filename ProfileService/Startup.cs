@@ -4,24 +4,35 @@ using IBusiness;
 using iDal.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-//using ProfileService.AsyncDataServices;
-using ProfileService.EventProcessing;
 
 namespace ProfileService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProfileDbContext>(opt =>
-            opt.UseInMemoryDatabase("InMemory"));
+            //if (_env.IsProduction())
+            //{
+                Console.WriteLine("Using sqlserver Db");
+                services.AddDbContext<ProfileDbContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("ProfileConn")));
+           // }
+            //else
+            //{
+             //   Console.WriteLine("using inMem Db");
+            //    services.AddDbContext<ProfileDbContext>(opt =>
+           //     opt.UseInMemoryDatabase("InMemory"));
+          //  }            
 
             services.AddControllers();
 
@@ -60,6 +71,8 @@ namespace ProfileService
             {
                 endpoints.MapControllers();
             });
+
+            //PrepDb.PrepPopulation(app, env.IsProduction());
         }
     }
 }
