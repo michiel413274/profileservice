@@ -21,18 +21,19 @@ namespace ProfileService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //if (_env.IsProduction())
-            //{
+            if (_env.IsProduction())
+            {
                 Console.WriteLine("Using sqlserver Db");
                 services.AddDbContext<ProfileDbContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("ProfileConn")));
-           // }
-            //else
-            //{
-             //   Console.WriteLine("using inMem Db");
-            //    services.AddDbContext<ProfileDbContext>(opt =>
-           //     opt.UseInMemoryDatabase("InMemory"));
-          //  }            
+                    opt.UseSqlServer(Configuration.GetConnectionString("ProfileConn"),
+                x => x.MigrationsAssembly("ProfileService")));
+            }
+            else
+            {
+                Console.WriteLine("using inMem Db");
+                services.AddDbContext<ProfileDbContext>(opt =>
+                opt.UseInMemoryDatabase("InMemory"));
+            }
 
             services.AddControllers();
 
@@ -72,7 +73,7 @@ namespace ProfileService
                 endpoints.MapControllers();
             });
 
-            //PrepDb.PrepPopulation(app, env.IsProduction());
+            PrepDb.PrepPopulation(app, env.IsProduction());
         }
     }
 }
