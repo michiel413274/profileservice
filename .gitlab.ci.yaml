@@ -12,14 +12,13 @@ build:
     - docker build -t darkmode1/accountservice:latest -t darkmode1/profileservice:$CI_COMMIT_SHA ./build
     - docker build -t $DOCKER_USERNAME/profileservice .
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    - docker push $DOCKER_USERNAME/profileservice
 
 test:
   stage: test
   script:
-    - # Add your testing commands here
+    - dotnet test
 
 deploy:
   stage: deploy
   script:
-    - # Add your deployment commands here
+    - docker push $DOCKER_USERNAME/profileservice
