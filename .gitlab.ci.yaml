@@ -1,0 +1,32 @@
+image: mcr.microsoft.com/dotnet/sdk:7.0
+
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - export PROJECT_NAME=profileservice
+  - docker login -u darkmode1 -p '3Dw3B&tOUsEmc4I!#B6QIW'
+  - dotnet restore
+
+build:
+  stage: build
+  script:
+    - dotnet build -c Release -o build
+    - docker build -t darkmode1/profileservice:latest -t darkmode1/profileservice:$CI_COMMIT_SHA ./build
+
+test:
+  stage: test
+  script:
+    - dotnet test
+
+deploy:
+  stage: deploy
+  script:
+    - docker push darkmode1/accountservice:latest
+    - docker push darkmode1/accountservice:$CI_COMMIT_SHA
+  environment:
+    name: production
+  only:
+    - master
