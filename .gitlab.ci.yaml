@@ -7,7 +7,6 @@ stages:
 
 before_script:
   - export PROJECT_NAME=profileservice
-  - docker login -u darkmode1 -p '3Dw3B&tOUsEmc4I!#B6QIW'
   - dotnet restore
 
 build:
@@ -24,8 +23,6 @@ test:
 deploy:
   stage: deploy
   script:
-    - docker push darkmode1/accountservice:latest
-    - docker push darkmode1/accountservice:$CI_COMMIT_SHA
   environment:
     name: production
   only:
