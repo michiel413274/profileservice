@@ -23,6 +23,7 @@ test:
 deploy:
   stage: deploy
   script:
+    - # Add your deployment commands here
   environment:
     name: production
   only:
