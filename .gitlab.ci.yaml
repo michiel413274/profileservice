@@ -9,8 +9,8 @@ build:
   stage: build
   script:
     - dotnet build -c Release -o build
-    - sudo docker build -t darkmode1/profileservice:latest .
-    - sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker build -t darkmode1/profileservice:latest .
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 test:
   stage: test
