@@ -35,6 +35,5 @@ deploy:
     - docker push darkmode1/accountservice:$CI_COMMIT_SHA
   environment:
     name: production
-    url: http://fyves.com
   only:
     - master
